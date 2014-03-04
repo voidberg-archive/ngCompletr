@@ -16,6 +16,21 @@ app.controller('MainController', ['$scope', '$http',
       {firstName: "Annie", surname: "Rowland", twitter: "@anklesannie", pic: "img/annie.jpg"}
     ];
 
+    $scope.searchPeople = function(query, callback) {
+      var matches = [];
+      for (var i = 0; i < $scope.people.length; i++) {
+        var match = false;
+        match = match || ($scope.people[i].firstName.toLowerCase().indexOf(query.toLowerCase()) >= 0);
+        match = match || ($scope.people[i].surname.toLowerCase().indexOf(query.toLowerCase()) >= 0);
+
+        if (match) {
+          matches[matches.length] = $scope.people[i];
+        }
+      }
+
+      callback(matches);
+    };
+
     $scope.countries = [
       {name: 'Afghanistan', code: 'AF'},
       {name: 'Aland Islands', code: 'AX'},
