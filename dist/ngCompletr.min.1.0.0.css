@@ -1,0 +1,10 @@
+/*
+ * ngCompletr 1.0.0
+ * http://demotix.com
+ *
+ * Built on 03-03-2014
+ *
+ * Licensed under the MIT license
+ */
+
+.ng-completr-holder{position:relative}.ng-completr-dropdown{border-color:#ececec;border-width:1px;border-style:solid;border-radius:2px;width:100%;padding:6px;cursor:pointer;z-index:9999;position:absolute;margin-top:-6px;background-color:#fff;color:#acacac;font-size:14px}.ng-completr-description{font-size:14px}.ng-completr-row{padding:5px;color:#000;margin-bottom:4px}.ng-completr-row:hover,.ng-completr-selected-row{background-color:#add8e6;color:#fff}.ng-completr-image-holder{padding-top:2px;float:left;margin-right:10px;margin-left:5px}.ng-completr-image{height:34px;width:34px;border-radius:50%;border-color:#ececec;border-style:solid;border-width:1px}.ng-completr-image-default{background-position:center;background-size:contain;height:34px;width:34px}

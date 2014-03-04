@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>ngCompletr</title>
+    <link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/flatly/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../src/ngCompletr.css"/>
+  </head>
+  <body ng-app="app">
+    <div class="container" ng-controller="MainController">
+      <div class="row">
+        <h1>ngCompletr</h1>
+        <p class="lead">Autocomplete for AngularJS</p>
+        <p>
+          A minimal looking, easy to implement directive for AngularJS that lets you quickly add autocomplete boxes (for local or remote JSON data) to your pages with no dependency on other libraries. Its deliberately minimal looking so you can easily customise it with just a few lines of CSS.
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="well">
+            <fieldset>
+              <legend>Example 1 - Countries of the World</legend>
+
+              <ng-completr
+                id="ex1"
+                ng-completr-query="searchCountry.query"
+                ng-completr-delay="100"
+                ng-completr-source="countries"
+                ng-completr-search-fields="name"
+                ng-completr-title-field="name"
+                ng-completr-min-length="1"
+                ng-completr-match-class="highlight"
+                ng-completr-result="searchCountry.result">
+                <input placeholder="Search countries" type="text" class="form-control" />
+              </ng-completr>
+            </fieldset>
+          </div>
+          <div class="" ng-show="searchCountry.result">
+            You selected <span class="bold-span">{{searchCountry.result.originalObject.name}}</span> which has a country code of <span class="bold-span">{{searchCountry.result.originalObject.code}}.</span>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="well">
+            <fieldset>
+              <legend>Example 2 - People</legend>
+
+              <ng-completr
+                id="ex1"
+                ng-completr-query="searchPerson.query"
+                ng-completr-delay="300"
+                ng-completr-source="people"
+                ng-completr-search-fields="firstName,surname"
+                ng-completr-title-field="firstName,surname"
+                ng-completr-description-field="twitter"
+                ng-completr-image-field="pic"
+                ng-completr-min-length="1"
+                ng-completr-match-class="highlight"
+                ng-completr-result="searchPerson.result">
+                <input placeholder="Search people" type="text" class="form-control" />
+              </ng-completr>
+            </fieldset>
+          </div>
+          <div class="" ng-show="searchPerson.result">
+            You selected <span class="bold-span">{{searchPerson.result.originalObject.firstName}} {{searchPerson.result.originalObject.surname}}.</span>
+          </div>
+        </div>
+      </div>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+      <script src="js/app.js"></script>
+      <script src="js/main-controller.js"></script>
+      <script src="../src/ngCompletr.js"></script>
+    </div>
+	</body>
+</html>
