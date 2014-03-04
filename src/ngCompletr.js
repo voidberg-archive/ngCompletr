@@ -157,7 +157,10 @@
             }
 
             if (angular.isFunction($scope.source)) {
-              // Do function search
+              $scope.source(str, function (results) {
+                $scope.searching = false;
+                $scope.processResults(results, str);
+              });
             }
 
             if (angular.isString($scope.source)) {
