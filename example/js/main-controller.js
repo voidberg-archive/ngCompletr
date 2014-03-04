@@ -10,6 +10,34 @@ app.controller('MainController', ['$scope', '$http',
       result: null
     };
 
+    $scope.searchCountryOptionsSearch = {
+      delay: 100,
+      minLength: 1,
+      data: null,
+      fields: ['name']
+    };
+
+    $scope.searchCountryOptionsDisplay = {
+      title: ['name'],
+      description: null,
+      image: null,
+      match: 'highlight'
+    };
+
+    $scope.searchPersonOptionsSearch = {
+      delay: 300,
+      minLength: 1,
+      data: null,
+      fields: null
+    };
+
+    $scope.searchPersonOptionsDisplay = {
+      title: ['firstName', 'surname'],
+      description: 'twitter',
+      image: 'pic',
+      match: 'highlight'
+    };
+
     $scope.people = [
       {firstName: "Daryl", surname: "Rowland", twitter: "@darylrowland", pic: "img/daryl.jpeg"},
       {firstName: "Alan", surname: "Partridge", twitter: "@alangpartridge", pic: "img/alanp.jpg"},

@@ -7,7 +7,7 @@
 (function(window, angular, undefined) {
   angular.module('ngCompletr', [])
     .run(['$templateCache', function ($templateCache) {
-      $templateCache.put('ngCompletr.html', '<div class="ng-completr-holder"><span ng-transclude></span><div class="ng-completr-dropdown" ng-if="showDropdown"><div class="ng-completr-searching" ng-show="searching">Searching...</div><div class="ng-completr-no-results" ng-show="!searching && (!results || results.length == 0)">No results found</div><div class="ng-completr-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseover="hoverRow()" ng-class="{\'ng-completr-selected-row\': $index == currentIndex}"><div ng-if="imageField" class="ng-completr-image-holder"><img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="ng-completr-image"/><div ng-if="!result.image && result.image != \'\'" class="ng-completr-image-default"></div></div><div class="ng-completr-title" ng-if="matchClass" ng-bind-html="result.title"></div><div class="ng-completr-title" ng-if="!matchClass">{{ result.title }}</div><div ng-if="result.description && result.description != \'\'" class="ng-completr-description">{{result.description}}</div></div></div></div>');
+      $templateCache.put('ngCompletr.html', '<div class="ng-completr-holder"><span ng-transclude></span><div class="ng-completr-dropdown" ng-if="showDropdown"><div class="ng-completr-searching" ng-show="searching">Searching...</div><div class="ng-completr-no-results" ng-show="!searching && (!results || results.length == 0)">No results found</div><div class="ng-completr-row" ng-repeat="result in results" ng-click="selectResult(result)" ng-mouseover="hoverRow()" ng-class="{\'ng-completr-selected-row\': $index == currentIndex}"><div ng-if="showImage" class="ng-completr-image-holder"><img ng-if="result.image && result.image != \'\'" ng-src="{{result.image}}" class="ng-completr-image"/><div ng-if="!result.image && result.image != \'\'" class="ng-completr-image-default"></div></div><div class="ng-completr-title" ng-if="matchClass" ng-bind-html="result.title"></div><div class="ng-completr-title" ng-if="!matchClass">{{ result.title }}</div><div ng-if="result.description && result.description != \'\'" class="ng-completr-description">{{result.description}}</div></div></div></div>');
     }])
     .directive('ngCompletr', ['$timeout', '$http', '$compile', function($timeout, $http, $compile) {
       return {
@@ -15,18 +15,12 @@
         replace: true,
         transclude: true,
         scope: {
-          'id': '@id',
           'query': '=ngCompletrQuery',
-          'source': '=ngCompletrSource',
-          'delay': '@ngCompletrDelay',
-          'minLength': '@ngCompletrMinLength',
-          'searchFields': '@ngCompletrSearchFields',
-          'dataField': '@ngCompletrDataField',
-          'titleField': '@ngCompletrTitleField',
-          'descriptionField': '@ngCompletrDescriptionField',
-          'imageField': '@ngCompletrImageField',
           'selectedObject': '=ngCompletrResult',
           'selectedCallback': '=ngCompletrResultCallback',
+          'source': '=ngCompletrSource',
+          'searchOptions': '=ngCompletrSearch',
+          'displayOptions': '=ngCompletrDisplay',
         },
         templateUrl: 'ngCompletr.html',
         link: function($scope, element) {
@@ -38,23 +32,42 @@
             'backspace': 8
           };
 
-          var minLength, delay;
+          var minLength, delay, fieldTitle, fieldDescription, fieldImage, fieldData, fieldSearch;
+
+          if ($scope.searchOptions) {
+            delay = $scope.searchOptions.delay ? $scope.searchOptions.delay : 100;
+            minLength = $scope.searchOptions.minLength ? $scope.searchOptions.minLength : 3;
+            fieldData = $scope.searchOptions.data;
+            fieldSearch = $scope.searchOptions.fields;
+          }
+          else {
+            delay =  100;
+            minLength = 3;
+            fieldData = null;
+            fieldSearch = [];
+          }
+
+          if ($scope.displayOptions) {
+            fieldTitle = $scope.displayOptions.title;
+            fieldDescription = $scope.displayOptions.description;
+            fieldImage = $scope.displayOptions.image;
+          }
+          else {
+            fieldTitle = [];
+            fieldDescription = null;
+            fieldImage = null;
+          }
+
+          if (fieldImage) {
+            $scope.showImage = true;
+          }
+          else {
+            $scope.showImage = false;
+          }
 
           $scope.inputElement = element.find('input');
           $scope.inputElement.attr('ng-model', 'query');
           $compile($scope.inputElement)($scope);
-
-          if ($scope.minLength) {
-            $scope.minLength = parseInt($scope.minLength, 10);
-          }
-
-          minLength = $scope.minLength ? $scope.minLength : 3;
-
-          if ($scope.delay) {
-            $scope.delay = parseInt($scope.delay, 10);
-          }
-
-          delay = $scope.delay ? $scope.delay : 100;
 
           $scope.showDropdown = false;
           $scope.searching = false;
@@ -85,11 +98,6 @@
             if (results && results.length > 0) {
               $scope.results = [];
 
-              var titleFields = [];
-              if ($scope.titleField && $scope.titleField !== '') {
-                titleFields = $scope.titleField.split(',');
-              }
-
               for (var i = 0; i < results.length; i++) {
                 var title = '';
                 var description = '';
@@ -101,16 +109,16 @@
                 else {
                   var titleCode = [];
 
-                  for (var t = 0; t < titleFields.length; t++) {
-                    titleCode.push(results[i][titleFields[t]]);
+                  for (var t = 0; t < fieldTitle.length; t++) {
+                    titleCode.push(results[i][fieldTitle[t]]);
                   }
 
-                  if ($scope.descriptionField) {
-                    description = results[i][$scope.descriptionField];
+                  if (fieldDescription) {
+                    description = results[i][fieldDescription];
                   }
 
-                  if ($scope.imageField) {
-                    image = results[i][$scope.imageField];
+                  if (fieldImage) {
+                    image = results[i][fieldImage];
                   }
 
                   title = titleCode.join(' ');
@@ -132,7 +140,6 @@
 
           $scope.searchTimerComplete = function(str) {
             if (angular.isArray($scope.source)) {
-              var searchFields = $scope.searchFields.split(',');
               var matches = [];
 
               for (var i = 0; i < $scope.source.length; i++) {
@@ -142,8 +149,8 @@
                   match = ($scope.source[i].toLowerCase().indexOf(str.toLowerCase()) >= 0);
                 }
                 else {
-                  for (var s = 0; s < searchFields.length; s++) {
-                    match = match || ($scope.source[i][searchFields[s]].toLowerCase().indexOf(str.toLowerCase()) >= 0);
+                  for (var s = 0; s < fieldSearch.length; s++) {
+                    match = match || ($scope.source[i][fieldSearch[s]].toLowerCase().indexOf(str.toLowerCase()) >= 0);
                   }
                 }
 
@@ -165,15 +172,12 @@
 
             if (angular.isString($scope.source)) {
               $http.get($scope.source + str, {}).
-                // success(function(responseData, status, headers, config) {
                 success(function(responseData) {
                   $scope.searching = false;
-                  $scope.processResults(responseData[$scope.dataField], str);
+                  $scope.processResults(responseData[fieldData], str);
                 }).
-                // error(function(data, status, headers, config) {
                 error(function() {
                   $scope.searching = false;
-                  console.log('error');
                 });
             }
           };
