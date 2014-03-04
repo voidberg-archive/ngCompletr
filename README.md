@@ -32,7 +32,76 @@ var app = angular.module('app', ["ngCompletr"]);
 
 ### Options
 
-
+<table>
+	<thead>
+		<tr>
+			<th>Option</th>
+			<th>Required</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>ng-completr-source</td>
+			<td>Y</td>
+			<td>
+				The source of the autocomplete. Can be:
+				<ul>
+					<li>An array of items.</li>
+					<li>A function that will receive the query string and a callback to pass back the results.</li>
+					<li>A string that contains the url that will be queried.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>ng-completr-query</td>
+			<td>Y</td>
+			<td>
+				Query string model.
+			</td>
+		</tr>
+		<tr>
+			<td>ng-completr-result</td>
+			<td>Y</td>
+			<td>
+				The variable that the result will be put into.
+			</td>
+		</tr>
+		<tr>
+			<td>ng-completr-result-callback</td>
+			<td>N</td>
+			<td>
+				Callback function that will be called when a result is selected.
+			</td>
+		</tr>
+		<tr>
+			<td>ng-completr-search</td>
+			<td>N</td>
+			<td>
+				Search options. An object with the following properties:
+				<ul>
+					<li>delay: Number of miliseconds after which the search will be performed.</li>
+					<li>minLength: Minimum number of characters to trigger a search.</li>
+					<li>data: When using a REST backend, the field of the response that contains the result.</li>
+					<li>fields: When using an array, the fields that will be used to search.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>ng-completr-display</td>
+			<td>N</td>
+			<td>
+				Display options. An object with the following properties:
+				<ul>
+					<li>title: Fields that contain the title of the result.</li>
+					<li>description: Field that contains the description of the result.</li>
+					<li>image: Field that contains the image of the result.</li>
+				</ul>
+			</td>
+		</tr>
+	</tbody>
+</thead>
+</table>
 
 ###ngCompletr?
 * ngAutocomplete was taken.
