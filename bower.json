@@ -12,7 +12,10 @@
     "angularjs"
   ],
   "license": "MIT",
-  "main": "./src/ngCompletr.js",
+  "main": [
+    "./dist/ngCompletr.1.0.0.js",
+    "./dist/ngCompletr.1.0.0.css"
+  ],
   "ignore": [
     "example",
     "bower_components",
