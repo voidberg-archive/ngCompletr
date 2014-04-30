@@ -20,7 +20,7 @@
           'selectedCallback': '=ngCompletrResultCallback',
           'source': '=ngCompletrSource',
           'searchOptions': '=ngCompletrSearch',
-          'displayOptions': '=ngCompletrDisplay',
+          'displayOptions': '=ngCompletrDisplay'
         },
         templateUrl: 'ngCompletr.html',
         link: function($scope, element) {
