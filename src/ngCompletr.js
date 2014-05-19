@@ -235,14 +235,21 @@
               if ($scope.currentIndex >= 0 && $scope.currentIndex < $scope.results.length) {
                 $scope.selectResult($scope.results[$scope.currentIndex]);
                 $scope.$apply();
+
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              else if ($scope.results.length) {
+                $scope.hoverRow(0);
+                $scope.selectResult($scope.results[$scope.currentIndex]);
+                $scope.$apply();
+
                 event.preventDefault();
                 event.stopPropagation();
               }
               else {
                 $scope.results = [];
                 $scope.$apply();
-                event.preventDefault();
-                event.stopPropagation();
               }
             }
             else if (event.which === keys.esc) {
