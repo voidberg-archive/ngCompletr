@@ -1,8 +1,8 @@
 /*
- * ngCompletr 1.0.0
- * http://demotix.com
+ * ngCompletr 0.0.1
+ * 
  *
- * Built on 19-05-2014
+ * Built on 23-07-2014
  *
  * Licensed under the MIT license
  */

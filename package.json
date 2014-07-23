@@ -1,11 +1,12 @@
 {
-  "authors": [
-    "Alexandru Badiu <andu@ctrlz.ro>"
-  ],
   "name": "ngCompletr",
   "description": "Autocomplete for AngularJS.",
-  "version": "1.0.0",
-  "homepage": "http://demotix.com",
+  "version": "0.0.2",
+  "repository": "https://github.com/voidberg/ng-completr",
+  "author": {
+    "name": "Alexandru Badiu",
+    "email": "andu@demotix.com"
+  },
   "license": "MIT",
   "engines": {
     "node": ">= 0.8.4"
