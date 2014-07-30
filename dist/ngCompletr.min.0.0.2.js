@@ -1,8 +1,8 @@
 /*
- * ngCompletr 0.0.1
+ * ngCompletr 0.0.2
  * 
  *
- * Built on 23-07-2014
+ * Built on 30-07-2014
  *
  * Licensed under the MIT license
  */
