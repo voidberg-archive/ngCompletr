@@ -1,15 +1,13 @@
 ngCompletr
 ==========
 
-A simple but powerful AngularJS directive that allows you to quickly create autocomplete boxes that pull data either from a server or local variable. It started as a rewrite of `angucomplete`.
+A simple but powerful AngularJS directive that allows you to quickly create autocomplete widgets that pull data either from a server or local variable. It started as a rewrite of `angucomplete`.
 
 ## Key Features
 
-* Show just a title, a title and a description or a title, description and image in your autocomplete list
-* Deliberately minimally styled so you can customise it to your heart's content!
-* Reads JSON data and allows you to specify which fields to use for display
-* Simple setup - e.g. to pull data from a server, just set the url parameter
-
+* Show just a title, a title and a description or a title, description and image in your autocomplete list.
+* Deliberately minimally styled so you can customise it.
+* Reads JSON data and allows you to specify which fields to use for display.
 
 ## Getting Started
 Download the code, and include the minified ngCompletr.js file in your page. Optionally add the css. Then add the ngCompletr module to your Angular App file, e.g.
@@ -113,14 +111,16 @@ var app = angular.module('app', ["ngCompletr"]);
 * ngCompletr it is!
 
 ## Contributing
+
 In lieu of a formal styleguide, take care to maintain the existing coding style. Lint and test your code using [Grunt](http://gruntjs.com/). Also, for new features, add a unit test.
 
 If you're creating a pull request, also please add yourself to the `CONTRIBUTORS.txt` file.
 
 ## Release History
+
 * 0.0.2 - Initial public release
 * 0.0.1 - Internal release
 
 ## License
 
-Released under the MIT license.
+Released under the [Apache 2 License](http://www.apache.org/licenses/LICENSE-2.0.html).
